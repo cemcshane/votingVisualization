@@ -24,10 +24,6 @@ BrushSelection.prototype.init = function(){
 BrushSelection.prototype.update = function(selectedStates){
     var self = this;
 
-    // ******* TODO: PART V *******
-    //Display the names of selected states in a list
-    //******** TODO: EXTRA CREDIT I*******
-    //Handle brush selection on the year chart
     let list = self.divBrushSelection.select("ul").selectAll("li").data(selectedStates);
     list
         .text(function(d) {

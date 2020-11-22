@@ -161,7 +161,6 @@ TileChart.prototype.update = function(electionResult, colorScale){
             return [0,0];
         })
         .html(function(event, d) {
-            /* populate data in the following format*/
             let winningCandidate;
             if(getWinner(d)=="D") {
                 winningCandidate = d.D_Nominee;
@@ -185,9 +184,6 @@ TileChart.prototype.update = function(electionResult, colorScale){
             tooltip_data.result = tooltip_data.result.filter(function(info){
                 return info.votecount != 0;
             })
-             /* pass this as an argument to the tooltip_render function then,
-             * return the HTML content returned from that method.
-             * */
             return self.tooltip_render(tooltip_data);
         });
 
@@ -202,7 +198,6 @@ TileChart.prototype.update = function(electionResult, colorScale){
         .labelWrap((self.svgWidth/12)-2)
         .scale(colorScale);
 
-    // ******* TODO: PART IV *******
     //Transform the legend element to appear in the center and make a call to this element for it to display.
     let legendGroup = d3.select(".legendQuantile");
     legendGroup
@@ -297,9 +292,7 @@ TileChart.prototype.update = function(electionResult, colorScale){
 
     tileSelection.exit().remove();
 
-    //Display the state abbreviation and number of electoral votes on each of these rectangles
-    //HINT: Use .tile class to style your tiles;
-    // .tilestext to style the text corresponding to tiles    
+    //Display the state abbreviation and number of electoral votes on each of these rectangles 
     let textSelectionAbbreviations = self.svg.select("#stateAbbreviations").selectAll("text").data(electionResult);
     textSelectionAbbreviations
         .text(function(d) {
@@ -357,7 +350,4 @@ TileChart.prototype.update = function(electionResult, colorScale){
 
     textSelectionEV.exit().remove();
 
-    //Call the tool tip on hover over the tiles to display stateName, count of electoral votes
-    //then, vote percentage and number of votes won by each party.
-    //HINT: Use the .republican, .democrat and .independent classes to style your elements.
 };

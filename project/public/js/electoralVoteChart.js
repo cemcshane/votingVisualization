@@ -60,7 +60,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
     var self = this;
 
     self.brushSelection.update([]);
-    // ******* TODO: PART II *******
 
     //Group the states based on the winning party for the state
     let dStates = electionResult.filter(function (d) {
@@ -103,8 +102,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
         .range([0, self.svgWidth-electionResult.length+1]);
 
     //Create the stacked bar chart.
-    //Use the global color scale to color code the rectangles.
-    //HINT: Use .electoralVotes class to style your bars.
     let barLength = 0;
     self.svg.selectAll("g")
         .remove()
@@ -182,8 +179,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
 
     //Display total count of electoral votes won by the Democrat and Republican party
     //on top of the corresponding groups of bars.
-    //HINT: Use the .electoralVoteText class to style your text elements;  Use this in combination with
-    // chooseClass to get a color based on the party wherever necessary
     let iVotes = dVotes = rVotes = 0;
     for(let i=0; i < iStates.length; ++i){
         iVotes += iStates[i].Total_EV;
@@ -223,7 +218,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
         .text(rVotes)
 
     //Display a bar with minimal width in the center of the bar chart to indicate the 50% mark
-    //HINT: Use .middlePoint class to style this bar.
     self.svg.append("line")
         .attr("x1", self.svgWidth/2)
         .attr("y1", 47)
@@ -233,7 +227,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
     
     //Just above this, display the text mentioning the total number of electoral votes required
     // to win the elections throughout the country
-    //HINT: Use .electoralVotesNote class to style this text element
     let winNum;
     if(totalEV%2 != 0) {
         winNum = Math.ceil(totalEV/2);
@@ -247,7 +240,6 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
         .attr("y", 40)
         .text("Electoral Votes (" + winNum + " needed to win)");
 
-    //******* TODO: PART V *******
     //Implement brush on the bar chart created above.
     self.svg.append("g")
         .attr("class", "brush");
@@ -296,8 +288,5 @@ ElectoralVoteChart.prototype.update = function(electionResult, colorScale){
 
     self.svg.select(".brush")
         .call(brush);
-    //Implement a call back method to handle the brush end event.
-    //Call the update method of brushSelection and pass the data corresponding to brush selection.
-    //HINT: Use the .brush class to style the brush.
 
 };

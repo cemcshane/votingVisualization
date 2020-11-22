@@ -26,7 +26,6 @@ VotePercentageChart.prototype.init = function(){
         .attr("height",self.svgHeight)
     
     //Just above midpoint, display the text mentioning details about this mark on top of this bar
-    //HINT: Use .votesPercentageNote class to style this text element
     self.svg.append("text")
         .attr("class", "votesPercentageNote")
         .attr("x", self.svgWidth/2)
@@ -93,15 +92,12 @@ VotePercentageChart.prototype.update = function(electionResult){
     let data = rawData.filter(function(d){
         return d.votes != 0;
     })
-    //for reference:https://github.com/Caged/d3-tip
-    //Use this tool tip element to handle any hover over the chart
     tip = d3.tip().attr('class', 'd3-tip')     
         .direction('s')
         .offset(function() {
             return [0, 200-this.getBBox().width/2];
         })
         .html(function(d) {
-            //populate data in the following format
             tooltip_data = {
               "result":[
               {"nominee": electionResult[0].D_Nominee,"votecount": dVotes,"percentage": (dVotes/totalVotes*100).toFixed(1),"party":"D"} ,
@@ -117,16 +113,11 @@ VotePercentageChart.prototype.update = function(electionResult){
             return self.tooltip_render(tooltip_data);
         });
 
-    // ******* TODO: PART III *******
-    //populate data in the following format
-
     let widthScale = d3.scaleLinear()
         .domain([0, 1])
         .range([0, self.svgWidth-data.length+1]);   
 
     //Create the stacked bar chart.
-    //Use the global color scale to color code the rectangles.
-    //HINT: Use .votesPercentage class to style your bars.    
     let barLength = 0;
     self.svg.call(tip);
     let selection = self.svg.selectAll("rect").data(data);
@@ -190,7 +181,6 @@ VotePercentageChart.prototype.update = function(electionResult){
     selection.exit().remove();
 
     //Display a bar with minimal width in the center of the bar chart to indicate the 50% mark
-    //HINT: Use .middlePoint class to style this bar.
     self.svg.selectAll("line").remove();
     self.svg.append("line")
         .attr("x1", self.svgWidth/2)
@@ -199,13 +189,10 @@ VotePercentageChart.prototype.update = function(electionResult){
         .attr("y2", 83)
         .attr("class", "middlePoint");
     //Just above this, display the text mentioning details about this mark on top of this bar
-    //HINT: Use .votesPercentageNote class to style this text element
     self.svg.select(".votesPercentageNote")
         .attr("display", "visible");
     //Display the total percentage of votes won by each party
     //on top of the corresponding groups of bars.
-    //HINT: Use the .votesPercentageText class to style your text elements;  Use this in combination with
-    // chooseClass to get a color based on the party wherever necessary
     let percentLabelSelection = self.svg.select("#percentLabels").selectAll("text").data(data);
     percentLabelSelection
         .style("text-anchor", function(d) {
@@ -287,8 +274,5 @@ VotePercentageChart.prototype.update = function(electionResult){
         })
     
     candidateLabelSelection.exit().remove();
-
-    //Call the tool tip on hover over the bars to display stateName, count of electoral votes.
-    //then, vote percentage and number of votes won by each party.
 
 };

@@ -81,10 +81,8 @@ YearChart.prototype.update = function(){
     let xScale = d3.scaleLinear()
         .domain([0, 19])
         .range([20, self.svgWidth-20]);
-    // ******* TODO: PART I *******
 
     //Style the chart by adding a dashed line that connects all these years.
-    //HINT: Use .lineChart to style this dashed line
     self.svg.append("line")
         .attr("x1", 20)
         .attr("y1", 20)
@@ -93,7 +91,6 @@ YearChart.prototype.update = function(){
         .attr("class", "lineChart");
 
     //Append text information of each year right below the corresponding circle
-    //HINT: Use .yeartext class to style your text elements    
     self.svg.selectAll("text")
         .data(self.electionWinners)
         .enter()
@@ -108,9 +105,6 @@ YearChart.prototype.update = function(){
         .attr("y", 55);
 
     // Create the chart by adding circle elements representing each election year
-    //The circles should be colored based on the winning party for that year
-    //HINT: Use the .yearChart class to style your circle elements
-    //HINT: Use the chooseClass method to choose the color corresponding to the winning party.    
     self.svg.selectAll("circle")
         .data(self.electionWinners)
         .enter()
@@ -123,9 +117,7 @@ YearChart.prototype.update = function(){
         .attr("class", function(d) {
             return self.chooseClass(d.PARTY);
         })
-        .on("click", function() {
-            //Clicking on any specific year should highlight that circle and  update the rest of the visualizations
-            //HINT: Use .highlighted class to style the highlighted circle      
+        .on("click", function() {    
             //Used https://stackoverflow.com/questions/44892726/d3-using-classed-to-add-and-remove-class-with-checkbox below:
             self.svg.selectAll("circle")
                 .classed("highlighted", false);
@@ -157,11 +149,4 @@ YearChart.prototype.update = function(){
             });
         });
 
-
-    //******* TODO: EXTRA CREDIT *******
-
-    //Implement brush on the year chart created above.
-    //Implement a call back method to handle the brush end event.
-    //Call the update method of brushSelection and pass the data corresponding to brush selection.
-    //HINT: Use the .brush class to style the brush.
 };
